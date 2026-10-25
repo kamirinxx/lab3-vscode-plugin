@@ -1,71 +1,14 @@
-# lab3-plugin README
+# C++ Unused Variables Finder
 
-This is the README for your extension "lab3-plugin". After writing up a brief description, we recommend including the following sections.
+**Шайдуллина Камила Финатовна** 
+**М3110** 
 
-## Features
+## Описание
+Это плагин для VS Code, который проверяет код на C++ и находит неинициализированные переменные. Он помогает поддерживать код в чистоте и безопасно удалять лишнее.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+## Что умеет плагин
+1. **Автоматическая проверка** — плагин сам анализирует код при открытии файла и во время набора текста, без необходимости запускать его вручную.
+2. **Панель диагностики** — неиспользуемые переменные подчеркиваются прямо в редакторе, а также выводятся списком в стандартной вкладке *Problems* с указанием строки.
+3. **Быстрое удаление (Quick Fix)** — если навести курсор на лишнюю переменную, появится «лампочка» с предложением удалить её в один клик.
+4. **Безопасность** — плагин следит за тем, чтобы не сломать программу. Если удаление переменной может нарушить логику (например, в неё записывается результат важной функции), он только предупредит об этом, но не станет удалять код бездумно.
+5. **Настройки** — во внутренних настройках VS Code можно включать или отключать проверку, а также выбирать, какие именно типы переменных нужно искать.
