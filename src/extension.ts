@@ -54,8 +54,23 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.workspace.onDidChangeTextDocument(event => analyzeDocument(event.document))
 	);
+	context.subscriptions.push(vscode.languages.registerCodeActionsProvider('cpp', new UnusedVarFixer));
 }
 
 export function deactivate() {
 	diagnosticCollection.dispose();
+}
+
+class UnusedVarFixer implements vscode.CodeActionProvider {
+	provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): vscode.ProviderResult<(vscode.CodeAction | vscode.Command)[]> {
+		if (context.diagnostics.length == 0) {
+			return [];
+		}
+		const action = new vscode.CodeAction("Удалить переменную", vscode.CodeActionKind.QuickFix);
+		const edit = new vscode.WorkspaceEdit();
+		const line = document.lineAt(range.start.line);
+		edit.delete(document.uri, line.rangeIncludingLineBreak);
+		action.edit = edit;
+		return [action];
+	}
 }
