@@ -7,12 +7,17 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(diagnosticCollection);
 
 	function analyzeDocument(document: vscode.TextDocument) {
+		const config = vscode.workspace.getConfiguration('unusedVarAnalyzer');
+		if (config.get('enabled') === false) {
+			return;
+		}
+		const types: string[] = config.get('types', ['int', 'char', 'float', 'bool', 'double']);
 		if (document.languageId !== 'cpp') {
 			return;
 		}
 		const text = document.getText();
 		const diagnostics: vscode.Diagnostic[] = [];
-		const types = ['int', 'char', 'float', 'bool', 'double'];
+		// const types = ['int', 'char', 'float', 'bool', 'double'];
 		const words = text.split(/\s+/);
 		for (let i = 0; i < words.length - 1; ++i) {
 			if (types.includes(words[i])) {
@@ -69,6 +74,9 @@ class UnusedVarFixer implements vscode.CodeActionProvider {
 		const action = new vscode.CodeAction("Удалить переменную", vscode.CodeActionKind.QuickFix);
 		const edit = new vscode.WorkspaceEdit();
 		const line = document.lineAt(range.start.line);
+		if (line.text.includes(',') || line.text.includes('=')) {
+			return [];
+		}
 		edit.delete(document.uri, line.rangeIncludingLineBreak);
 		action.edit = edit;
 		return [action];

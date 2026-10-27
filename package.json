@@ -9,9 +9,35 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:cpp"
+  ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Анализатор переменных",
+      "properties": {
+        "unusedVarAnalyzer.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Включить проверку неиспользуемых переменных"
+        },
+        "unusedVarAnalyzer.types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "int",
+            "char",
+            "double",
+            "float",
+            "bool"
+          ],
+          "description": "Типы данных для проверки"
+        }
+      }
+    },
     "commands": [
       {
         "command": "lab3-plugin.helloWorld",
